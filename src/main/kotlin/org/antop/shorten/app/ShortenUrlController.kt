@@ -13,7 +13,7 @@ class ShortenUrlController(val shortenUrlService: ShortenUrlService) {
     @GetMapping("/{shortUrl:[a-zA-Z0-9]+}")
     fun longUrl(@PathVariable shortUrl: String): ResponseEntity<Unit> =
         shortenUrlService.findOriginalUrl(shortUrl)?.let {
-            ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
+            ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)
                 .header(HttpHeaders.LOCATION, it)
                 .build()
         } ?: ResponseEntity.notFound().build()
